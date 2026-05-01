@@ -1,6 +1,6 @@
-# PathPilot Berkeley Planner
+ Berkeley Schedule Planner
 
-PathPilot Berkeley is a lightweight front-end prototype for planning across a wider range of UC Berkeley majors. It turns a student's major, starting point, domain emphasis when relevant, hobbies, AP credit, summer preference, optional research or co-op term, and secondary program goals into a semester-by-semester plan.
+ Berkeley Bear Schedule Planner is a lightweight front-end prototype for planning across a wider range of UC Berkeley majors. It turns a student's major, starting point, domain emphasis when relevant, hobbies, AP credit, summer preference, optional research or co-op term, and secondary program goals into a semester-by-semester plan.
 
 ## What it does
 
