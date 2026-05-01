@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>UC Berkeley Bear Planner</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=DM+Serif+Display:ital@0;1&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">UC Berkeley Bear Planner</p>
+          <h1>Build a Berkeley-ready plan for majors across campus, not just one school.</h1>
+          <p class="hero-text">
+            UC Berkeley Bear Planner turns major requirements, breadth, prerequisites, optional summer study,
+            and second-program goals into one living roadmap for a much wider range of UC Berkeley students.
+          </p>
+          <div class="hero-stats">
+            <div>
+              <strong>8 semesters</strong>
+              <span>planned automatically</span>
+            </div>
+            <div>
+              <strong>Multi-college</strong>
+              <span>Berkeley-wide major coverage</span>
+            </div>
+            <div>
+              <strong>Summer + AP</strong>
+              <span>plan around real options</span>
+            </div>
+          </div>
+        </div>
+        <div class="hero-card">
+          <p class="mini-label">What Berkeley students usually juggle</p>
+          <ul>
+            <li>“Which Berkeley major path actually fits me?”</li>
+            <li>“Can I use AP credit to get requirements off my plate?”</li>
+            <li>“If I do Data Science, which domain emphasis should I build around?”</li>
+            <li>“Can I do summer classes or a co-op without breaking my prerequisites?”</li>
+            <li>“What if I want a second major or minor too?”</li>
+          </ul>
+        </div>
+      </header>
+
+      <main class="dashboard">
+        <section class="panel controls-panel">
+          <div class="panel-header">
+            <p class="eyebrow">Student Profile</p>
+            <h2>Design the student, then let the planner work.</h2>
+          </div>
+
+          <form id="planner-form" class="planner-form">
+            <label>
+              <span>Student name</span>
+              <input id="studentName" name="studentName" type="text" value="Jordan" />
+            </label>
+
+            <label>
+              <span>Major</span>
+              <select id="major" name="major"></select>
+            </label>
+
+            <label>
+              <span>Starting point</span>
+              <select id="transferGoal" name="transferGoal">
+                <option value="First-year entrant">First-year entrant</option>
+                <option value="Transfer applicant">Transfer applicant</option>
+                <option value="Exploring before applying">Exploring before applying</option>
+              </select>
+            </label>
+
+            <label>
+              <span>Already-earned credits</span>
+              <input id="earnedCredits" name="earnedCredits" type="number" min="0" max="80" step="0.5" value="0" />
+            </label>
+
+            <label id="domainLabel" class="conditional-field">
+              <span>Data Science domain emphasis</span>
+              <select id="domainEmphasis" name="domainEmphasis"></select>
+            </label>
+
+            <label>
+              <span>Secondary program</span>
+              <select id="secondaryProgram" name="secondaryProgram"></select>
+            </label>
+
+            <label>
+              <span>Preferred credits per semester</span>
+              <input id="creditsPerTerm" name="creditsPerTerm" type="range" min="9" max="18" value="14" />
+              <strong id="creditsValue">14 credits</strong>
+            </label>
+
+            <label>
+              <span>Max tech-heavy courses in one semester</span>
+              <input id="maxTechCourses" name="maxTechCourses" type="range" min="1" max="4" value="2" />
+              <strong id="techValue">2 courses</strong>
+            </label>
+
+            <label>
+              <span>Preferred semester vibe</span>
+              <select id="pacePreference" name="pacePreference">
+                <option value="balanced">Balanced</option>
+                <option value="ambitious">Ambitious</option>
+                <option value="light">Light + sustainable</option>
+              </select>
+            </label>
+
+            <label>
+              <span>Use summer terms?</span>
+              <select id="summerPreference" name="summerPreference">
+                <option value="none">No summer classes</option>
+                <option value="light">Yes, lighter summers</option>
+                <option value="regular">Yes, normal summer load</option>
+              </select>
+            </label>
+
+            <label id="summerCreditsLabel" class="conditional-field">
+              <span>Summer credits target</span>
+              <input id="summerCredits" name="summerCredits" type="range" min="3" max="10" value="6" />
+              <strong id="summerCreditsValue">6 credits</strong>
+            </label>
+
+            <label>
+              <span>Optional non-class term</span>
+              <select id="specialTermType" name="specialTermType">
+                <option value="none">None</option>
+                <option value="gap">Gap semester</option>
+                <option value="research">Research term</option>
+                <option value="coop">Co-op / internship term</option>
+              </select>
+            </label>
+
+            <label id="specialTermPlacementLabel" class="conditional-field">
+              <span>Place it after</span>
+              <select id="specialTermPlacement" name="specialTermPlacement">
+                <option value="Year 1 / Spring">Year 1 / Spring</option>
+                <option value="Year 2 / Spring" selected>Year 2 / Spring</option>
+                <option value="Year 3 / Fall">Year 3 / Fall</option>
+                <option value="Year 3 / Spring">Year 3 / Spring</option>
+              </select>
+            </label>
+
+            <label>
+              <span>Career direction</span>
+              <select id="careerFocus" name="careerFocus">
+                <option value="industry">Straight to industry</option>
+                <option value="research">Research / university prep</option>
+                <option value="startup">Startup / entrepreneurship</option>
+                <option value="community">Community impact / service</option>
+              </select>
+            </label>
+
+            <label>
+              <span>Optimization mode</span>
+              <select id="optimizationMode" name="optimizationMode">
+                <option value="balanced">Balanced default</option>
+                <option value="fastest">Fastest completion</option>
+                <option value="lowStress">Lowest stress</option>
+                <option value="careerLaunch">Internship / career launch</option>
+              </select>
+            </label>
+
+            <label>
+              <span>What-if simulator</span>
+              <select id="scenarioMode" name="scenarioMode">
+                <option value="none">No disruption</option>
+                <option value="gatewayDelay">Gateway prerequisite setback</option>
+                <option value="studyAbroad">Study abroad in Year 3 Fall</option>
+                <option value="internshipHeavy">Internship-heavy Year 2</option>
+              </select>
+            </label>
+
+            <fieldset>
+              <legend>Hobbies and side interests</legend>
+              <div id="interestGrid" class="chip-grid"></div>
+            </fieldset>
+
+            <fieldset>
+              <legend>AP / transfer credit already fulfilled</legend>
+              <div id="apGrid" class="chip-grid"></div>
+            </fieldset>
+
+            <button type="submit" class="primary-button">Generate My 4-Year Plan</button>
+          </form>
+        </section>
+
+        <section class="panel summary-panel">
+          <div class="panel-header">
+            <p class="eyebrow">Plan Summary</p>
+            <h2 id="studentHeadline">Jordan’s Berkeley roadmap will appear here.</h2>
+          </div>
+
+          <div class="summary-metrics">
+            <article>
+              <span class="metric-label">Completion trajectory</span>
+              <strong id="trajectoryMetric">On track</strong>
+            </article>
+            <article>
+              <span class="metric-label">Recommended focus</span>
+              <strong id="focusMetric">Major core + breadth balance</strong>
+            </article>
+            <article>
+              <span class="metric-label">Schedule pressure</span>
+              <strong id="pressureMetric">Medium</strong>
+            </article>
+            <article>
+              <span class="metric-label">Plan score</span>
+              <strong id="scoreMetric">84 / 100</strong>
+            </article>
+          </div>
+
+          <div class="insight-box">
+            <h3>Registration intelligence</h3>
+            <ul id="insightsList"></ul>
+          </div>
+
+          <div class="insight-box">
+            <h3>Suggested support moves</h3>
+            <ul id="supportList"></ul>
+          </div>
+
+          <div class="insight-box">
+            <h3>Requirement progress</h3>
+            <ul id="progressList"></ul>
+          </div>
+
+          <div class="insight-box">
+            <h3>Stress Test</h3>
+            <ul id="riskList"></ul>
+          </div>
+
+        </section>
+      </main>
+
+      <section class="panel comparison-panel">
+        <div class="panel-header">
+          <p class="eyebrow">Best Paths</p>
+          <h2>Compare high-level plan strategies</h2>
+        </div>
+        <div id="comparisonGrid" class="comparison-grid"></div>
+      </section>
+
+      <section class="panel chat-panel">
+        <div class="panel-header">
+          <p class="eyebrow">Planner Chat</p>
+          <h2>Tell the planner what to change</h2>
+        </div>
+        <p id="chatContext" class="chat-context">Click a course card below, then say things like “I don’t want to take this in the first semester.”</p>
+        <div id="chatLog" class="chat-log"></div>
+        <form id="chatForm" class="chat-form">
+          <input id="chatInput" type="text" placeholder="Type a planning change..." />
+          <button type="submit" class="primary-button">Update Plan</button>
+        </form>
+      </section>
+
+      <section class="panel intel-panel">
+        <div class="panel-header">
+          <p class="eyebrow">Course Intel</p>
+          <h2>See why a class is placed where it is</h2>
+        </div>
+        <p id="intelHeadline" class="chat-context">Click a course card to see what it unlocks, what it depends on, and why this placement makes sense.</p>
+        <div class="insight-box">
+          <h3>Why now</h3>
+          <ul id="intelWhyList"></ul>
+        </div>
+        <div class="insight-box">
+          <h3>What it unlocks</h3>
+          <ul id="intelUnlockList"></ul>
+        </div>
+      </section>
+
+      <section class="panel milestone-panel">
+        <div class="panel-header">
+          <p class="eyebrow">Milestone Radar</p>
+          <h2>Track the checkpoints around the classes</h2>
+        </div>
+        <p class="chat-context">This layer keeps the plan aware of declaration timing, comprehensive review prep, recruiting windows, and the final graduation audit.</p>
+        <div class="insight-box">
+          <h3>Major checkpoints</h3>
+          <ul id="milestoneList"></ul>
+        </div>
+      </section>
+
+      <section class="panel power-panel">
+        <div class="panel-header">
+          <p class="eyebrow">Power Moves</p>
+          <h2>Apply high-impact improvements in one click</h2>
+        </div>
+        <p class="chat-context">Each move previews its score impact before you apply it, so the planner feels strategic instead of static.</p>
+        <div id="powerMovesGrid" class="power-grid"></div>
+      </section>
+
+      <section class="panel plan-panel">
+        <div class="panel-header">
+          <p class="eyebrow">4-Year Roadmap</p>
+          <h2>Semester-by-semester plan</h2>
+        </div>
+        <div id="semesterGrid" class="semester-grid"></div>
+      </section>
+    </div>
+
+    <template id="semesterTemplate">
+      <article class="semester-card">
+        <div class="semester-header">
+          <div>
+            <p class="semester-label"></p>
+            <h3 class="semester-title"></h3>
+          </div>
+          <div class="semester-badge"></div>
+        </div>
+        <ul class="course-list"></ul>
+        <div class="semester-footer">
+          <span class="credit-total"></span>
+          <span class="tech-total"></span>
+        </div>
+      </article>
+    </template>
+
+    <script src="app.js"></script>
+  </body>
+</html>
